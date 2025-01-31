@@ -3,6 +3,9 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-nati
 import { LineChart } from "react-native-chart-kit";
 import { Card } from "@/components/ui/card";
 import { useNavigation } from "expo-router";
+import { StatusBar } from 'react-native';
+import { MaterialIcons } from "@expo/vector-icons";
+
 
 export default function StepsDetailScreen() {
   const navigation = useNavigation();
@@ -34,6 +37,7 @@ export default function StepsDetailScreen() {
   const goToNextDay = () => {
     const newDate = new Date(currentDate);
     newDate.setDate(currentDate.getDate() + 1); 
+    setCurrentDate(newDate);
   };
 
   const chartConfig = {
@@ -58,7 +62,10 @@ export default function StepsDetailScreen() {
   };
 
   return (
+    <>
+    <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
     <ScrollView style={styles.container}>
+      
       <View style={styles.header}>
         <Text style={styles.headText}>Steps details</Text>
       </View>
@@ -112,8 +119,15 @@ export default function StepsDetailScreen() {
 
       <View style={styles.cardsContainer}>
         <Card style={styles.card}>
+        <View style={styles.cardHeader}>
+        <View style={styles.iconContainer}>
+          <MaterialIcons name="arrow-upward" size={20} color="white" />
+        </View>
+        <View>
           <Text style={styles.cardTitle}>Keep it up</Text>
-          <Text>Your steps score is above average</Text>
+          <Text style={styles.statLabel}>Your steps score is above average</Text>
+        </View>
+      </View>
           <View style={styles.cardStatsRow}>
             <View>
               <Text style={styles.statLabel}>Total Steps</Text>
@@ -121,28 +135,220 @@ export default function StepsDetailScreen() {
             </View>
             <View>
               <Text style={styles.statLabel}>Daily Goal</Text>
-              <Text style={styles.statValue}>5,800</Text>
+              <Text style={styles.statValueG}>5,800</Text>
             </View>
             <View>
               <Text style={styles.statLabel}>Average Steps</Text>
-              <Text style={styles.statValue}>5,950</Text>
+              <Text style={styles.statValueG}>5,950</Text>
             </View>
           </View>
         </Card>
 
         <View style={styles.smallCardsRow}>
-          <Card style={styles.smallCard}>
-            <Text style={styles.statLabel}>Calories</Text>
-            <Text style={styles.statValue}>170 kcal</Text>
+          <Card style={styles.smallCard} >
+            <Text style={styles.statLabel}>Distance</Text>
+            <View style={styles.cardStatsRow2}> 
+              <Text style={styles.statValue}>1.2</Text>
+              <Text style={styles.statLabel2}>km</Text>
+            </View>
           </Card>
 
           <Card style={styles.smallCard}>
-            <Text style={styles.statLabel}>Calories</Text>
-            <Text style={styles.statValue}>170 kcal</Text>
+            <Text style={styles.dateText}>Calories</Text>
+            <View style={styles.cardStatsRow2}> 
+              <Text style={styles.statValue}>170</Text>
+              <Text style={styles.statLabel2}>kcal</Text>
+            </View>
           </Card>
         </View>
+        <View style={styles.cardsContainer}>
+  {/*  Cadence Card */}
+  <Card style={styles.cadenceCard}>
+  <View style={styles.cardCadence}>
+    <Text style={styles.cardTitle}>Cadence</Text>
+    <Text style={styles.statSteps}>Steps/min</Text>
+    </View>
+    <View>
+      <LineChart
+        data={{
+          labels: ["00:00", "06:00", "12:00", "18:00", "00:00"],
+          datasets: [
+            {
+              data: [0, 50, 100, 150, 200],
+            },
+          ],
+        }}
+        width={350}
+        height={220}
+        chartConfig={{
+          backgroundGradientFrom: "#ffffff",
+          backgroundGradientTo: "#ffffff",
+          color: (opacity = 1) => `rgba(26, 188, 156, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          propsForDots: {
+            r: "4",
+            strokeWidth: "2",
+            stroke: "#199A8E",
+          },
+        }}
+        bezier
+        style={styles.chart}
+      />
+    </View>
+  </Card>
+  {/*  step time Card */}
+  <Card style={styles.cadenceCard}>
+  <View style={styles.cardCadence}>
+    <Text style={styles.cardTitle}>Step Time</Text>
+    <Text style={styles.statSteps}>Seconds</Text>
+    </View>
+    <View>
+      <LineChart
+         data={{
+          labels: ["00:00", "06:00", "12:00", "18:00", "00:00"],
+          datasets: [
+            {
+              data: [0, 50, 10, 150, 200],
+            },
+          ],
+        }}
+        width={350}
+        height={220}
+        chartConfig={{
+          backgroundGradientFrom: "#ffffff",
+          backgroundGradientTo: "#ffffff",
+          color: (opacity = 1) => `rgba(26, 188, 156, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          propsForDots: {
+            r: "4",
+            strokeWidth: "2",
+            stroke: "#199A8E",
+          },
+        }}
+        bezier
+        style={styles.chart}
+      />
+    </View>
+  </Card>
+  {/*  Swing Card */}
+  <Card style={styles.cadenceCard}>
+  <View style={styles.cardCadence}>
+    <Text style={styles.cardTitle}>Swing</Text>
+    <Text style={styles.statSteps}>Seconds</Text>
+    </View>
+    <View>
+      <LineChart
+         data={{
+          labels: ["00:00", "06:00", "12:00", "18:00", "00:00"],
+          datasets: [
+            {
+              data: [0, 0, 0, 150, 200],
+            },
+          ],
+        }}
+        width={350}
+        height={220}
+        chartConfig={{
+          backgroundGradientFrom: "#ffffff",
+          backgroundGradientTo: "#ffffff",
+          color: (opacity = 1) => `rgba(26, 188, 156, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          propsForDots: {
+            r: "4",
+            strokeWidth: "2",
+            stroke: "#199A8E",
+          },
+        }}
+        bezier
+        style={styles.chart}
+      />
+    </View>
+  </Card>
+   {/*  Stance Card */}
+   <Card style={styles.cadenceCard}>
+  <View style={styles.cardCadence}>
+    <Text style={styles.cardTitle}>Stance</Text>
+    <Text style={styles.statSteps}>Seconds</Text>
+    </View>
+    <View>
+      <LineChart
+         data={{
+          labels: ["00:00", "06:00", "12:00", "18:00", "00:00"],
+          datasets: [
+            {
+              data: [0, 40, 60, 150, 200],
+            },
+          ],
+        }}
+        width={350}
+        height={220}
+        chartConfig={{
+          backgroundGradientFrom: "#ffffff",
+          backgroundGradientTo: "#ffffff",
+          color: (opacity = 1) => `rgba(26, 188, 156, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          propsForDots: {
+            r: "4",
+            strokeWidth: "2",
+            stroke: "#199A8E",
+          },
+        }}
+        bezier
+        style={styles.chart}
+      />
+    </View>
+  </Card>
+</View>
+
+<Card style={styles.angleCard}>
+  <View style={styles.angleHeader}>
+    <View style={styles.angleColumn}>
+      <Text style={styles.angleTitle}>Toe Off Angle</Text>
+      <View style={styles.angleImagePlaceholder}>
+        {/* Add an image or icon here if available */}
+      </View>
+    </View>
+    <View style={styles.angleColumn}>
+      <Text style={styles.angleTitle}>Heel Contact Angle</Text>
+      <View style={styles.angleImagePlaceholder}>
+        {/* Add an image or icon here if available */}
+      </View>
+    </View>
+  </View>
+
+  <View style={styles.angleDataContainer}>
+    {/* Left Foot Stats */}
+    <View style={styles.angleDataSection}>
+      <Text style={styles.dataHeader}>Left Foot</Text>
+      <Text style={styles.dataLabel}>Average</Text>
+      <Text style={styles.dataValue}>39.86°</Text>
+      <Text style={styles.dataLabel}>Maximum</Text>
+      <Text style={styles.dataValue}>48.15° (+ 3.66°)</Text>
+      <Text style={styles.dataLabel}>Minimum</Text>
+      <Text style={styles.dataValue}>48.15° (+ 8.69°)</Text>
+      
+    </View>
+
+    {/* Divider Line */}
+    <View style={styles.divider} />
+
+    {/* Right Foot Stats */}
+    <View style={styles.angleDataSection}>
+      <Text style={styles.dataHeader}>Right Foot</Text>
+      <Text style={styles.dataLabel}>Average</Text>
+      <Text style={styles.dataValue}>39.86°</Text>
+      <Text style={styles.dataLabel}>Maximum</Text>
+      <Text style={styles.dataValue}>48.15° (+ 3.66°)</Text>
+      <Text style={styles.dataLabel}>Minimum</Text>
+      <Text style={styles.dataValue}>48.15° (+ 8.69°)</Text>
+    </View>
+  </View>
+</Card>
+
+
       </View>
     </ScrollView>
+    </>
   );
 }
 
@@ -228,19 +434,48 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 16,
   },
+  cardStatsRow2: {
+    flexDirection: "row",
+    marginTop: 16,
+  },
+  cardCadence: {
+    flexDirection: "row",
+    alignContent: "center",
+    marginBottom: 16,
+  },
   statLabel: {
-    fontSize: 12,
+    
+    fontSize: 14,
     color: "#777",
+  },
+  statSteps: {
+    fontSize: 11,
+    color: "#777",
+    paddingTop: 7,
+    paddingLeft: 6,
+ 
+  },
+  statLabel2: {
+    fontSize: 14,
+    color: "#777",
+    paddingTop: 12,
+    paddingLeft: 6,
   },
   statValue: {
     fontSize: 25,
     fontWeight: "bold",
+  },
+  statValueG: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "#3AB09E",
   },
   smallCardsRow: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
   smallCard: {
+    margin: 3,
     flex: 1,
     padding: 16,
   },
@@ -252,4 +487,95 @@ const styles = StyleSheet.create({
     color: "#555555",
     marginHorizontal: 16, 
   },
+  cardHeader: {
+  flexDirection: "row",
+  alignItems: "center",
+  marginBottom: 16,
+},
+iconContainer: {
+  width: 40,
+  height: 40,
+  borderRadius: 20, // Makes it a circle
+  backgroundColor: "#3AB09E", // Green color
+  justifyContent: "center",
+  alignItems: "center",
+  marginRight: 12, // Spacing between the icon and text
+},
+cadenceCard: {
+  marginBottom: 16,
+  padding: 16,
+  borderRadius: 12,
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.2,
+  shadowRadius: 4,
+  elevation: 3,
+},
+angleCard: {
+  padding: 16,
+  marginBottom: 16,
+  borderRadius: 12,
+  shadowColor: "#000",
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.2,
+  shadowRadius: 4,
+  elevation: 3,
+  backgroundColor: "#fff",
+},
+angleHeader: {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  marginBottom: 16,
+},
+angleColumn: {
+  alignItems: "center",
+  flex: 1,
+},
+angleTitle: {
+  fontSize: 14,
+  fontWeight: "600",
+  marginBottom: 8,
+  color: "#333",
+},
+angleImagePlaceholder: {
+  width: 50,
+  height: 50,
+  backgroundColor: "#E8F5F3",
+  borderRadius: 25,
+
+  
+},
+angleDataContainer: {
+  paddingHorizontal: 8,
+},
+angleDataSection: {
+  paddingVertical: 12,
+  
+},
+divider: {
+  height: 1,
+  backgroundColor: "#E0E0E0", // Light gray color
+  marginVertical: 8,
+},
+dataHeader: {
+  fontSize: 16,
+  fontWeight: "600",
+  marginBottom: 8,
+  color: "#333",
+},
+dataLabel: {
+  fontSize: 14,
+  color: "#666",
+},
+dataValue: {
+  fontSize: 14,
+  fontWeight: "600",
+  marginBottom: 8,
+  color: "#333",
+},
+
+
 });
