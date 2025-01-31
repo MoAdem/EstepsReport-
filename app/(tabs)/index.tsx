@@ -5,6 +5,9 @@ import { Card } from "@/components/ui/card";
 import { useNavigation } from "expo-router";
 import { StatusBar } from 'react-native';
 import { MaterialIcons } from "@expo/vector-icons";
+import EDSSCard from "@/components/ui/EDSSCard";
+import { Button } from "react-native-paper";
+
 
 
 export default function StepsDetailScreen() {
@@ -344,9 +347,75 @@ export default function StepsDetailScreen() {
     </View>
   </View>
 </Card>
-
-
+<View style={styles.newcard}>
+      <View style={styles.newheader}>
+        <Text style={styles.title}>Physical & Mental Stress</Text>
+        <MaterialIcons name="info" style={styles.infoIcon} />
       </View>
+
+      {/* Line Chart */}
+      <LineChart
+        data={{
+          labels: ["00:00", "06:00", "12:00", "18:00", "00:00"],
+          datasets: [
+            {
+              data: [100, 40, 50, 30, 40 ,0],
+              color: (opacity = 1) => `rgba(0, 128, 255, ${opacity})`,
+              strokeWidth: 2,
+            },
+            {
+              data: [70, 60, 30, 50, 40],
+              color: (opacity = 1) => `rgba(255, 165, 0, ${opacity})`,
+              strokeWidth: 2,
+              
+            },
+          ],
+        }}
+        width={350} 
+        height={220}
+        chartConfig={{
+          backgroundColor: "#ffffff",
+          backgroundGradientFrom: "#ffffff",
+          backgroundGradientTo: "#ffffff",
+          decimalPlaces: 0,
+          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          style: {
+            borderRadius: 8,
+          },
+        }}
+        bezier
+        style={{
+          marginVertical: 8,
+          borderRadius: 8,
+        }}
+      />
+
+      {/* Legend */}
+      <View style={styles.legend}>
+        <View style={styles.legendItem}>
+          <View style={[styles.legendIcon, { backgroundColor: "#0080FF" }]} />
+          <Text style={styles.legendText}>Physical Stress</Text>
+        </View>
+        <View style={styles.legendItem}>
+          <View
+            style={[
+              styles.legendIcon,
+              { backgroundColor: "#FFA500", borderStyle: "dashed" },
+            ]}
+          />
+          <Text style={styles.legendText}>Mental Stress</Text>
+        </View>
+      </View>
+    </View>
+
+    <EDSSCard />  
+    <Button mode="contained" style={styles.shareButton}>
+      <Text style={styles.shareButtonText}>Share</Text>
+    </Button>
+       
+  </View>
+  
     </ScrollView>
     </>
   );
@@ -357,6 +426,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 16,
+  },
+  shareButton: {
+    marginVertical: 16,
+    paddingVertical: 8,
+    marginBottom : 30,
+    borderRadius: 10,
+    backgroundColor: "#3AB09E",
+  },
+  shareButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#fff",
   },
   tabBarContainer: {
     backgroundColor: "#F9FAFB", 
@@ -495,11 +576,11 @@ const styles = StyleSheet.create({
 iconContainer: {
   width: 40,
   height: 40,
-  borderRadius: 20, // Makes it a circle
-  backgroundColor: "#3AB09E", // Green color
+  borderRadius: 20, 
+  backgroundColor: "#3AB09E", 
   justifyContent: "center",
   alignItems: "center",
-  marginRight: 12, // Spacing between the icon and text
+  marginRight: 12, 
 },
 cadenceCard: {
   marginBottom: 16,
@@ -557,7 +638,7 @@ angleDataSection: {
 },
 divider: {
   height: 1,
-  backgroundColor: "#E0E0E0", // Light gray color
+  backgroundColor: "#E0E0E0", 
   marginVertical: 8,
 },
 dataHeader: {
@@ -575,6 +656,54 @@ dataValue: {
   fontWeight: "600",
   marginBottom: 8,
   color: "#333",
+},
+newcard: {
+  backgroundColor: "#fff",
+  borderRadius: 12,
+  padding: 16,
+  shadowColor: "#000",
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.1,
+  shadowRadius: 4,
+  elevation: 3,
+  marginBottom: 16,
+},
+newheader: {
+  flexDirection: "row",
+
+  alignItems: "center",
+  marginBottom: 12,
+},
+title: {
+  fontSize: 16,
+  fontWeight: "600",
+  color: "#333",
+},
+infoIcon: {
+  marginLeft: 10,
+  marginTop: 2,
+  fontSize: 18,
+  color: "#667085",
+  
+},
+legend: {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  marginTop: 12,
+},
+legendItem: {
+  flexDirection: "row",
+  alignItems: "center",
+},
+legendIcon: {
+  width: 12,
+  height: 12,
+  borderRadius: 6,
+  marginRight: 8,
+},
+legendText: {
+  fontSize: 12,
+  color: "#555",
 },
 
 
