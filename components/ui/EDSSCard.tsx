@@ -4,6 +4,10 @@ import { Card } from 'react-native-paper';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
 
+
+// Your app setup code here
+
+
 const EDSSCard = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -31,6 +35,9 @@ const EDSSCard = () => {
               </Text>
             ))}
           </View>
+
+          {/* X-Axis Line */}
+          <View style={styles.xAxisLine} />
 
           {/* Marker and Step Indicator */}
           <View style={styles.markerContainer}>
@@ -85,7 +92,7 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 18,
     color: '#667085',
-    padding:10 ,
+    padding: 10,
   },
   headerText: {
     marginLeft: 8,
@@ -101,6 +108,14 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     height: 200,
     position: 'relative',
+  },
+  xAxisLine: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 1,
+    backgroundColor: '#000',
   },
   gridLines: {
     position: 'absolute',
@@ -131,11 +146,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#D2F5ED',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  markerText: {
-    fontSize: 18,
-    color: '#007AFF',
-    fontWeight: 'bold',
   },
   stepText: {
     position: 'absolute',
@@ -179,7 +189,7 @@ const styles = StyleSheet.create({
   },
   learnMoreButtonText: {
     color: 'black',
-    fontSize: 16,   
+    fontSize: 16,
   },
 });
 

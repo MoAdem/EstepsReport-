@@ -6,12 +6,33 @@ import { useNavigation } from "expo-router";
 import { StatusBar } from 'react-native';
 import { MaterialIcons } from "@expo/vector-icons";
 import EDSSCard from "@/components/ui/EDSSCard";
-import { Button } from "react-native-paper";
+import { Button ,} from "react-native-paper";
+import {Alert, Share} from 'react-native';
+import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 
 
 
 export default function StepsDetailScreen() {
   const navigation = useNavigation();
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          'Hello this is my eSteps report section for today',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          
+        } else {
+          
+        }
+      } else if (result.action === Share.dismissedAction) {
+        
+      }
+    } catch (error: any) {
+      Alert.alert(error.message);
+    }
+  };
   const [activeTab, setActiveTab] = useState("Day");
   const [currentDate, setCurrentDate] = useState(new Date());
   const handleTabPress = (tab: string) => {
@@ -409,10 +430,15 @@ export default function StepsDetailScreen() {
       </View>
     </View>
 
-    <EDSSCard />  
-    <Button mode="contained" style={styles.shareButton}>
+    <EDSSCard /> 
+    <SafeAreaProvider>
+      <SafeAreaView>
+      <Button onPress={onShare} mode="contained" style={styles.shareButton}>
       <Text style={styles.shareButtonText}>Share</Text>
     </Button>
+      </SafeAreaView>
+    </SafeAreaProvider> 
+    
        
   </View>
   
